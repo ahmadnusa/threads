@@ -5,8 +5,8 @@ export default function Page() {
     <SignUp
       appearance={{
         elements: {
-          formButtonPrimary: 'bg-dark-1 hover:bg-dark-4 text-sm normal-case',
-          footerActionLink: 'text-dark-4',
+          formButtonPrimary: 'bg-slate-800 hover:bg-slate-700 text-sm normal-case',
+          footerActionLink: 'text-slate-300 hover:text-slate-200',
         },
       }}
     />
