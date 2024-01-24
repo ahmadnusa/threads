@@ -13,7 +13,7 @@ import { isBase64Image } from '@/lib/utils'
 import { userSchema } from '@/lib/validations/user'
 
 import { Button } from '../ui/button'
-import { Form, FormControl, FormField, FormItem, FormLabel } from '../ui/form'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
 import { Input } from '../ui/input'
 import { Textarea } from '../ui/textarea'
 
@@ -147,6 +147,7 @@ export default function AccountProfile({ user, btnTitle }: AccountProfileProps) 
                   {...field}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -165,6 +166,7 @@ export default function AccountProfile({ user, btnTitle }: AccountProfileProps) 
                   {...field}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -183,10 +185,11 @@ export default function AccountProfile({ user, btnTitle }: AccountProfileProps) 
                   {...field}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" className="bg-primary-500 hover:bg-primary-500/30">
+        <Button type="submit" className="bg-primary-500 hover:bg-primary-500/80">
           {btnTitle}
         </Button>
       </form>

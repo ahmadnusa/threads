@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use server'
 
 import { revalidatePath } from 'next/cache'
@@ -32,8 +33,20 @@ export async function updateUser({
     )
 
     if (path === '/profile/edit') revalidatePath(path)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     throw new Error(`Failed to update User: ${error.message}`)
+  }
+}
+
+export async function fetchUser(userId: string) {
+  try {
+    connectToDb()
+    const user = await User.findOne({ id: userId })
+    // .populate({
+    //   path: 'communities' /*, model: Community*/,
+    // })
+    return JSON.parse(JSON.stringify(user))
+  } catch (error: any) {
+    throw new Error(`Failed to fetch user : ${error.message}`)
   }
 }
