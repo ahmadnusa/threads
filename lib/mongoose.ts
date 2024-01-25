@@ -1,18 +1,32 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import mongoose from 'mongoose'
 
-let isConnected = false
+const DATABASE_URL = process.env.MONGODB_URL!
 
-export const connectToDb = async () => {
-  mongoose.set('strictQuery', true)
+if (!DATABASE_URL) {
+  throw new Error('Please define the DATABASE_URL environment variable inside .env.local')
+}
 
-  if (!process.env.MONGODB_URL) return console.log('MONGODB_URL not found')
-  if (isConnected) return console.log('Alredy connected to MongodDB')
+let cached = (global as any).mongoose
 
-  try {
-    await mongoose.connect(process.env.MONGODB_URL)
-    isConnected = true
-    console.log('Connected to MongoDB')
-  } catch (error) {
-    console.log(error)
+if (!cached) {
+  cached = (global as any).mongoose = { conn: null, promise: null }
+}
+
+export async function connectToDb() {
+  if (cached.conn) {
+    return cached.conn
   }
+
+  if (!cached.promise) {
+    const opts = {
+      bufferCommands: false,
+    }
+
+    cached.promise = mongoose.connect(DATABASE_URL, opts).then(mongoose => {
+      return mongoose
+    })
+  }
+  cached.conn = await cached.promise
+  return cached.conn
 }

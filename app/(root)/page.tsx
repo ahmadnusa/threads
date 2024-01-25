@@ -1,6 +1,7 @@
 import { currentUser } from '@clerk/nextjs'
 import { redirect } from 'next/navigation'
 
+import ThreadCard from '@/components/cards/ThreadCard'
 // import ThreadCard from "@/components/cards/ThreadCard";
 // import Pagination from "@/components/shared/Pagination";
 import { fetchPosts } from '@/lib/actions/thread.action'
@@ -17,7 +18,7 @@ export default async function Home({
   const userInfo = await fetchUser(user.id)
   if (!userInfo?.onboarded) redirect('/onboarding')
 
-  const result = await fetchPosts(searchParams.page ? +searchParams.page : 1, 30)
+  const result = await fetchPosts(1, 30)
 
   return (
     <>
@@ -28,8 +29,7 @@ export default async function Home({
           <p className="no-result">No threads found</p>
         ) : (
           <>
-            <div>have post</div>
-            {/* {result.posts.map(post => (
+            {result.posts.map(post => (
               <ThreadCard
                 key={post._id}
                 id={post._id}
@@ -41,7 +41,7 @@ export default async function Home({
                 createdAt={post.createdAt}
                 comments={post.children}
               />
-            ))} */}
+            ))}
           </>
         )}
       </section>

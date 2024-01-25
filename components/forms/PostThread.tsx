@@ -23,6 +23,7 @@ export default function PostThread({ userId }: { userId: string }) {
       accountId: userId,
     },
   })
+  console.log(userId)
 
   const onSubmit = async (values: z.infer<typeof threadSchema>) => {
     await createThread({

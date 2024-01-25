@@ -1,7 +1,15 @@
-import { OrganizationSwitcher, SignedIn, SignOutButton } from '@clerk/nextjs'
+import {
+  OrganizationSwitcher,
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignOutButton,
+} from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+
+import { Button } from '../ui/button'
 
 export default function Header() {
   return (
@@ -20,6 +28,11 @@ export default function Header() {
             </SignOutButton>
           </SignedIn>
         </div>
+        <SignedOut>
+          <SignInButton>
+            <Button className="bg-primary-500 text-light-1 hover:bg-primary-500/80">Sign In</Button>
+          </SignInButton>
+        </SignedOut>
         <OrganizationSwitcher
           appearance={{
             elements: {
