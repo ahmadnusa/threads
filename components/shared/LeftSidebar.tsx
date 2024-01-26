@@ -1,6 +1,6 @@
 'use client'
 
-import { SignedIn, SignOutButton } from '@clerk/nextjs'
+import { SignedIn, SignOutButton, useAuth } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
@@ -10,12 +10,15 @@ import { sidebarLinks } from '@/constants'
 export default function LeftSideBar() {
   const router = useRouter()
   const pathname = usePathname()
+  const { userId } = useAuth()
   return (
     <section className="costum-scrollbar leftsidebar">
       <div className="flex w-full flex-1 flex-col gap-6 px-6">
         {sidebarLinks.map((link, index) => {
           const isActive =
             (pathname.includes(link.route) && link.route.length > 1) || pathname == link.route
+
+          if (link.route === '/profile') link.route = `${link.route}/${userId}`
           return (
             <Link
               key={index}

@@ -13,10 +13,10 @@ export default async function Home({
   searchParams: { [key: string]: string | undefined }
 }) {
   const user = await currentUser()
-  if (!user) return null
-
-  const userInfo = await fetchUser(user.id)
-  if (!userInfo?.onboarded) redirect('/onboarding')
+  if (user) {
+    const userInfo = await fetchUser(user.id)
+    if (!userInfo?.onboarded) redirect('/onboarding')
+  }
 
   const result = await fetchPosts(1, 30)
 
@@ -33,7 +33,7 @@ export default async function Home({
               <ThreadCard
                 key={post._id}
                 id={post._id}
-                currentUserId={user.id}
+                currentUserId={user?.id}
                 parentId={post.parentId}
                 content={post.text}
                 author={post.author}

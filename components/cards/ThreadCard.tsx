@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 interface params {
   id: string
-  currentUserId: string
+  currentUserId?: string
   parentId: string | null
   content: string
   author: {
