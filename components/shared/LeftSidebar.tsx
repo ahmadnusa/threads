@@ -21,7 +21,7 @@ export default function LeftSideBar() {
           if (link.route === '/profile') link.route = `${link.route}/${userId}`
           return (
             <Link
-              key={index}
+              key={`link-aauf-${index}`}
               href={link.route}
               className={`leftsidebar_link ${isActive && 'bg-primary-500'}`}
             >

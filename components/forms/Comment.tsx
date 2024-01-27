@@ -37,7 +37,7 @@ export default function Comment({ threadId, currentUserImg, currentUserId }: Pro
 
   return (
     <Form {...form}>
-      <form className="comment-form" onSubmit={form.handleSubmit(onSubmit)}>
+      <form className="comment-form" onSubmit={form.handleSubmit(onSubmit)} autoComplete="off">
         <FormField
           control={form.control}
           name="thread"

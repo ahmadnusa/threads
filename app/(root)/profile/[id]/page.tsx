@@ -30,8 +30,8 @@ export default async function page({ params }: { params: { id: string } }) {
       <div className="mt-9">
         <Tabs defaultValue="threads" className="w-full">
           <TabsList className="tab">
-            {profileTabs.map(tab => (
-              <TabsTrigger key={tab.label} value={tab.value} className="tab">
+            {profileTabs.map((tab, index) => (
+              <TabsTrigger key={`tabs-${index}`} value={tab.value} className="tab">
                 <Image
                   src={tab.icon}
                   alt={tab.label}
@@ -49,9 +49,9 @@ export default async function page({ params }: { params: { id: string } }) {
               </TabsTrigger>
             ))}
           </TabsList>
-          {profileTabs.map(tab => (
+          {profileTabs.map((tab, index) => (
             <TabsContent
-              key={`content-${tab.label}`}
+              key={`content-${index}-${tab.label}`}
               value={tab.value}
               className="w-full text-light-1"
             >

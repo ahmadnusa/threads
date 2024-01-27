@@ -1,3 +1,4 @@
+import { fetchCommunityPosts } from '@/lib/actions/community.action'
 import fetchUserPosts from '@/lib/actions/user.action'
 
 import ThreadCard from '../cards/ThreadCard'
@@ -36,10 +37,10 @@ interface Props {
 }
 
 export default async function ThreadsTab({ currentUserId, accountId, accountType }: Props) {
-  const result: Result = await fetchUserPosts(accountId)
+  let result: Result
 
-  // if (accountType === 'Community') result = await fetchUserPosts(accountId)
-  // else result = await fetchUserPosts(accountId)
+  if (accountType === 'Community') result = await fetchCommunityPosts(accountId)
+  else result = await fetchUserPosts(accountId)
 
   return (
     <section className="mt-9 flex flex-col gap-10">
@@ -47,9 +48,9 @@ export default async function ThreadsTab({ currentUserId, accountId, accountType
         <p className="no-result">No threads found</p>
       ) : (
         <>
-          {result.threads.map(thread => (
+          {result.threads.map((thread, index) => (
             <ThreadCard
-              key={thread._id}
+              key={`thread-yhdb-${index}`}
               id={thread._id}
               currentUserId={currentUserId}
               parentId={thread.parentId}

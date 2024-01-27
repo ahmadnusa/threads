@@ -19,8 +19,8 @@ export default async function page() {
       <section className="mt-10 flex flex-col gap-5">
         {activity.length > 0 ? (
           <>
-            {activity.map(activity => (
-              <Link key={activity._id} href={`/thread/${activity.parentId}`}>
+            {activity.map((activity, index) => (
+              <Link key={`activity-${index}`} href={`/thread/${activity.parentId}`}>
                 <article className="activity-card">
                   <Image
                     src={activity.author.image}

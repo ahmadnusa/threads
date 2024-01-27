@@ -23,14 +23,14 @@ export default async function page({ params }: { params: { id: string } }) {
     <section className="relative">
       <div>
         <ThreadCard
-          id={thread._id}
+          id={thread?._id}
           currentUserId={user.id}
-          parentId={thread.parentId}
-          content={thread.text}
-          author={thread.author}
-          community={thread.community}
-          createdAt={thread.createdAt}
-          comments={thread.children}
+          parentId={thread?.parentId}
+          content={thread?.text}
+          author={thread?.author}
+          community={thread?.community}
+          createdAt={thread?.createdAt}
+          comments={thread?.children}
         />
       </div>
 
@@ -43,9 +43,9 @@ export default async function page({ params }: { params: { id: string } }) {
       </div>
 
       <div className="mt-10">
-        {thread.children.map((childItem: any) => (
+        {thread?.children.map((childItem: any, index: number) => (
           <ThreadCard
-            key={childItem._id}
+            key={`childItem-asdas-${index}`}
             id={childItem._id}
             currentUserId={user.id}
             parentId={childItem.parentId}

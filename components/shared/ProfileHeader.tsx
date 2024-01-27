@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 interface Props {
@@ -8,6 +9,7 @@ interface Props {
   username: string
   imgUrl: string
   bio: string
+  type?: 'Community' | 'User'
 }
 
 export default function ProfileHeader({
@@ -17,6 +19,7 @@ export default function ProfileHeader({
   username,
   imgUrl,
   bio,
+  type,
 }: Props) {
   return (
     <div className="flex flex-col w-full justify-start">
@@ -28,7 +31,7 @@ export default function ProfileHeader({
               alt="logo"
               height={44}
               width={44}
-              className="rounded-full object-cover shadow-2xl"
+              className="rounded-full object-cover shadow-2xl h-[44px]"
             />
           </div>
 
@@ -37,15 +40,21 @@ export default function ProfileHeader({
             <p className="text-base-medium text-gray-1">@{username}</p>
           </div>
         </div>
-        {/* {accountId === authUserId && type !== 'Community' && (
+        {accountId === authUserId && type !== 'Community' && (
           <Link href="/profile/edit">
-            <div className="flex cursor-pointer gap-3 rounded-lg bg-dark-3 px-4 py-2">
-              <Image src="/assets/edit.svg" alt="logout" width={16} height={16} />
+            <div className="flex items-center cursor-pointer gap-3 rounded-lg bg-dark-3 px-4 py-2">
+              <Image
+                src="/assets/edit.svg"
+                alt="logout"
+                width={16}
+                height={16}
+                className="h-[16px]"
+              />
 
               <p className="text-light-2 max-sm:hidden">Edit</p>
             </div>
           </Link>
-        )} */}
+        )}
       </div>
 
       <p className="mt-6 max-w-lg text-base-regular text-light-2 whitespace-pre-line ">{bio}</p>

@@ -3,6 +3,7 @@
 import { FilterQuery, SortOrder } from 'mongoose'
 import { revalidatePath } from 'next/cache'
 
+import Community from '../models/community.model'
 import Thread from '../models/thread.model'
 import User from '../models/user.model'
 import { connectToDb } from '../mongoose'
@@ -41,10 +42,10 @@ export async function updateUser({
 export async function fetchUser(userId: string) {
   try {
     await connectToDb()
-    const user = await User.findOne({ id: userId })
-    // .populate({
-    //   path: 'communities' /*, model: Community*/,
-    // })
+    const user = await User.findOne({ id: userId }).populate({
+      path: 'communities',
+      model: Community,
+    })
     return JSON.parse(JSON.stringify(user))
   } catch (error) {
     console.error('Failed to fetch user : ', error)
@@ -59,15 +60,22 @@ export default async function fetchUserPosts(userId: string) {
     const thraeds = await User.findOne({ id: userId }).populate({
       path: 'threads',
       model: Thread,
-      populate: {
-        path: 'children',
-        model: Thread,
-        populate: {
-          path: 'author',
-          model: User,
-          select: 'name iamge id',
+      populate: [
+        {
+          path: 'community',
+          model: Community,
+          select: 'name id image _id', // Select the "name" and "_id" fields from the "Community" model
         },
-      },
+        {
+          path: 'children',
+          model: Thread,
+          populate: {
+            path: 'author',
+            model: User,
+            select: 'name image id',
+          },
+        },
+      ],
     })
 
     return thraeds

@@ -1,5 +1,6 @@
 'use client'
 
+import { useOrganization } from '@clerk/nextjs'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { usePathname, useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
@@ -15,6 +16,7 @@ import { Textarea } from '../ui/textarea'
 export default function PostThread({ userId }: { userId: string }) {
   const { push } = useRouter()
   const pathname = usePathname()
+  const { organization } = useOrganization()
 
   const form = useForm<z.infer<typeof threadSchema>>({
     resolver: zodResolver(threadSchema),
@@ -28,7 +30,7 @@ export default function PostThread({ userId }: { userId: string }) {
     await createThread({
       text: values.thread,
       author: userId,
-      communityId: null,
+      communityId: organization ? organization.id : null,
       path: pathname,
     })
 

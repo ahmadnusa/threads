@@ -17,7 +17,7 @@ export default function Footer() {
             (pathname.includes(link.route) && link.route.length > 1) || pathname == link.route
           return (
             <Link
-              key={index}
+              key={`link-asds-${index}`}
               href={link.route}
               className={`bottombar_link ${isActive && 'bg-primary-500'}`}
             >
