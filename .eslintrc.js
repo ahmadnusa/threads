@@ -1,6 +1,7 @@
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
+  ignorePatterns: ['components/ui'],
   extends: [
     'next/core-web-vitals',
     'plugin:@typescript-eslint/recommended',
